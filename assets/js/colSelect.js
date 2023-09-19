@@ -8,8 +8,20 @@ async function colSelect(){
     try {
         const upload = document.getElementById("file");
         const file = upload.files[0];
-        const fileContent = await file.text();
-        const firstSplit = fileContent.split('\r\n');
+        const fileContent_str = await file.text();
+        const fileContent = fileContent_str.replaceAll("\r","");
+        /*
+        TODO - commented out code used for new line test, retained for 
+        TODO - future test if needed
+        let newLine = '\n';
+
+        if(newLine>=0){
+            newLine = '\r\n';
+        }else{
+            newLine = '\n';
+        }*/
+        const firstSplit = fileContent.split('\n');
+        //const firstSplit = fileContent.split('\r\n');
         const chk_headers = document.getElementById("headerList");
         const headers = firstSplit[0];
         const arr_headers = String(headers).split(",");

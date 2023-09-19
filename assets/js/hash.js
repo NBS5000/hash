@@ -3,7 +3,6 @@
 async function hashData(cols){
 
     const pdId = prompt("PD project ID");
-    console.log("pdid",pdId);
     if(!pdId){
         throw "Hash Cancelled";
     }
@@ -22,8 +21,19 @@ async function hashData(cols){
     /************************/
 
     (async () => {
-        const fileContent = await file.text();
-        const firstSplit = fileContent.split('\r\n');
+        const fileContent_str = await file.text();
+        const fileContent = fileContent_str.replaceAll("\r","");
+        /*
+        TODO - commented out code used for new line test, retained for 
+        TODO - future test if needed
+        let newLine = '\n';
+
+        if(newLine>=0){
+            newLine = '\r\n';
+        }else{
+            newLine = '\n';
+        }*/
+        const firstSplit = fileContent.split('\n');
         for (let i = 0; i < firstSplit.length; i++) {
             const el = firstSplit[i].split('\t');
             if(el[0]){
@@ -66,7 +76,7 @@ async function hashData(cols){
                 const values = secondSplit[i];
                 csvRows.push(values)
             }
-            return csvRows.join('\r\n')
+            return csvRows.join('\n')
         }
         
         const get = async function () {
